@@ -124,6 +124,18 @@ class BannerCard extends LitElement {
       }
     }
 
+    if (config.map_attribute && config.attribute in config.map_attribute) {
+      const mappedState = config.map_attribute[state.state];
+      const mapStateType = typeof mappedState;
+      if (mapStateType === "string") {
+        dynamicData.value = mappedState;
+      } else if (mapStateType === "object") {
+        Object.entries(mappedState).forEach(([key, val]) => {
+          dynamicData[key] = val;
+        });
+      }
+    }
+
     const data = {
       name: attributes.friendly_name,
       state: state ? state.state : "",
