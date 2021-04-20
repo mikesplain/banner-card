@@ -184,8 +184,8 @@
    */
   const m = new WeakMap(),
     f = (t) => "function" == typeof t && m.has(t),
-    y = {},
-    g = {};
+    g = {},
+    y = {};
   /**
    * @license
    * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -341,16 +341,16 @@
       (this.value = void 0), (this.committer = t);
     }
     setValue(t) {
-      t === y ||
+      t === g ||
         (w(t) && t === this.value) ||
         ((this.value = t), f(t) || (this.committer.dirty = !0));
     }
     commit() {
       for (; f(this.value); ) {
         const t = this.value;
-        (this.value = y), t(this);
+        (this.value = g), t(this);
       }
-      this.value !== y && this.committer.commit();
+      this.value !== g && this.committer.commit();
     }
   }
   class P {
@@ -379,10 +379,10 @@
       if (null === this.startNode.parentNode) return;
       for (; f(this.__pendingValue); ) {
         const t = this.__pendingValue;
-        (this.__pendingValue = y), t(this);
+        (this.__pendingValue = g), t(this);
       }
       const t = this.__pendingValue;
-      t !== y &&
+      t !== g &&
         (w(t)
           ? t !== this.value && this.__commitText(t)
           : t instanceof b
@@ -391,8 +391,8 @@
           ? this.__commitNode(t)
           : S(t)
           ? this.__commitIterable(t)
-          : t === g
-          ? ((this.value = g), this.clear())
+          : t === y
+          ? ((this.value = y), this.clear())
           : this.__commitText(t));
     }
     __insert(t) {
@@ -439,7 +439,7 @@
       e(this.startNode.parentNode, t.nextSibling, this.endNode);
     }
   }
-  class N {
+  class $ {
     constructor(t, e, i) {
       if (
         ((this.value = void 0),
@@ -457,25 +457,25 @@
     commit() {
       for (; f(this.__pendingValue); ) {
         const t = this.__pendingValue;
-        (this.__pendingValue = y), t(this);
+        (this.__pendingValue = g), t(this);
       }
-      if (this.__pendingValue === y) return;
+      if (this.__pendingValue === g) return;
       const t = !!this.__pendingValue;
       this.value !== t &&
         (t
           ? this.element.setAttribute(this.name, "")
           : this.element.removeAttribute(this.name),
         (this.value = t)),
-        (this.__pendingValue = y);
+        (this.__pendingValue = g);
     }
   }
-  class k extends x {
+  class N extends x {
     constructor(t, e, i) {
       super(t, e, i),
         (this.single = 2 === i.length && "" === i[0] && "" === i[1]);
     }
     _createPart() {
-      return new $(this);
+      return new k(this);
     }
     _getValue() {
       return this.single ? this.parts[0].value : super._getValue();
@@ -485,7 +485,7 @@
         ((this.dirty = !1), (this.element[this.name] = this._getValue()));
     }
   }
-  class $ extends C {}
+  class k extends C {}
   let E = !1;
   (() => {
     try {
@@ -513,9 +513,9 @@
     commit() {
       for (; f(this.__pendingValue); ) {
         const t = this.__pendingValue;
-        (this.__pendingValue = y), t(this);
+        (this.__pendingValue = g), t(this);
       }
-      if (this.__pendingValue === y) return;
+      if (this.__pendingValue === g) return;
       const t = this.__pendingValue,
         e = this.value,
         i =
@@ -539,7 +539,7 @@
             this.__options
           )),
         (this.value = t),
-        (this.__pendingValue = y);
+        (this.__pendingValue = g);
     }
     handleEvent(t) {
       "function" == typeof this.value
@@ -609,10 +609,10 @@
     handleAttributeExpressions(t, e, i, s) {
       const n = e[0];
       if ("." === n) {
-        return new k(t, e.slice(1), i).parts;
+        return new N(t, e.slice(1), i).parts;
       }
       if ("@" === n) return [new A(t, e.slice(1), s.eventContext)];
-      if ("?" === n) return [new N(t, e.slice(1), i)];
+      if ("?" === n) return [new $(t, e.slice(1), i)];
       return new x(t, e, i).parts;
     }
     handleTextExpression(t) {
@@ -673,9 +673,9 @@
       return n.stringsArray.set(e.strings, r), r;
     },
     q = ["html", "svg"],
-    B = new Set(),
-    D = (t, e, i) => {
-      B.add(t);
+    D = new Set(),
+    B = (t, e, i) => {
+      D.add(t);
       const s = i ? i.element : document.createElement("template"),
         n = e.querySelectorAll("style"),
         { length: r } = n;
@@ -1142,7 +1142,7 @@
       const n = s.scopeName,
         r = O.has(i),
         o = R && 11 === i.nodeType && !!i.host,
-        a = o && !B.has(n),
+        a = o && !D.has(n),
         c = a ? document.createDocumentFragment() : i;
       if (
         (((t, i, s) => {
@@ -1159,7 +1159,7 @@
         const t = O.get(c);
         O.delete(c);
         const s = t.value instanceof _ ? t.value.template : void 0;
-        D(n, c, s), e(i, i.firstChild), i.appendChild(c), O.set(i, t);
+        B(n, c, s), e(i, i.firstChild), i.appendChild(c), O.set(i, t);
       }
       !r && o && window.ShadyCSS.styleElement(i.host);
     });
@@ -1449,6 +1449,7 @@
       onClick: n,
       ...r
     }) {
+      console.log("renderDomainDefault: ${action}");
       const o = this.renderValue(
         { ...r, value: t, click: n },
         () => j` ${t} ${e} `
@@ -1469,6 +1470,7 @@
       onClick: r,
       ...o
     }) {
+      console.log("renderCustom: ${action}");
       const a = this.renderValue(
         { ...o, value: t, unit: e, click: i },
         () => j`
@@ -1523,7 +1525,9 @@
     `;
     }
     _renderCustomElement(t, e, i) {
-      return j`
+      return (
+        console.log("_renderCustomElement: ${config}"),
+        j`
       <div class="entity-state" style="${this.grid(e.size || "full")}">
         <div class="entity-value">
           <div class="entity-padded ${i}">
@@ -1534,10 +1538,12 @@
           </div>
         </div>
       </div>
-    `;
+    `
+      );
     }
     renderCustomElement(t, e, i = "") {
-      if (customElements.get(t)) return this._renderCustomElement(t, e, i);
+      if ((console.log("config: ${action}"), customElements.get(t)))
+        return this._renderCustomElement(t, e, i);
       console.error(t + " doesn't exist");
     }
     renderAsToggle({
@@ -1550,6 +1556,7 @@
       color: o,
     }) {
       return (
+        console.log("renderAsToggle: ${action}"),
         (o = o || "var(--switch-checked-color)"),
         j`
       <div class="entity-state" style="${this.grid(e)}">
@@ -1567,6 +1574,7 @@
       );
     }
     renderDomainCover({ onClick: t, size: e, name: i, state: s, entity: n }) {
+      console.log("renderDomainCover: ${name}");
       const r = "closed" === s || 0 === s,
         o = "open" === s || 100 === s;
       return j`
