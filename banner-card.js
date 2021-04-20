@@ -1308,25 +1308,17 @@
               s[t] = e;
             });
       }
-      if (
-        (console.info("banner-card: before if"),
-        console.info("banner-card: map_attribute: %c" + t.map_attribute),
-        console.info("banner-card: config.attribute: " + t.attribute),
-        console.info("banner-card: config.map_attribute: " + t.map_attribute),
-        t.attribute)
-      ) {
+      if (t.attribute) {
         const e = i[t.attribute];
         if (t.map_attribute && e in t.map_attribute) {
-          console.info("banner-card: inside if");
           const i = t.map_attribute[e],
             n = typeof i;
           "string" === n
-            ? (console.info("banner-card: inside if string"), (s.value = i))
+            ? (s.value = i)
             : "object" === n &&
-              (console.info("banner-card: inside else if"),
               Object.entries(i).forEach(([t, e]) => {
                 s[t] = e;
-              }));
+              });
         }
       }
       const n = {
@@ -1486,8 +1478,8 @@
       `
       );
       return j`
-      <div class="entity-state" style="${this.grid(n)}">
-        ${ot(s, r)}
+      <div class="entity-state" style="${this.grid(n)}" @click=${i}>
+        ${ot(s)}
         <span class="entity-value">${a}</span>
       </div>
     `;
