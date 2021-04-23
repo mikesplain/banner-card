@@ -1425,7 +1425,7 @@
       o
     ) {
       return (
-        (n = n ? "@click=" + n : ""),
+        (n = n ? `@click="${n}"` : ""),
         t || rt(e)
           ? j`
         <ha-icon .icon="${t || e}" style="${(r = r

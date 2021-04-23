@@ -279,7 +279,7 @@ class BannerCard extends LitElement {
   }
 
   renderValue({ icon, value, image, action, click, color }, fallback) {
-    click = click ? `@click=${click}` : "";
+    click = click ? `@click="${click}"` : "";
     if (icon || isIcon(value)) {
       color = color ? `color: ${color}` : "";
       return html`
