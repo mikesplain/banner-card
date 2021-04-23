@@ -1473,11 +1473,7 @@
       console.log("renderCustom: ${action}");
       const a = this.renderValue(
         { ...o, value: t, unit: e, click: i },
-        () => j`
-        <mwc-button ?dense=${!0} @click=${i}>
-          ${t} ${e}
-        </mwc-button>
-      `
+        () => j` <mwc-button ?dense=${!0}> ${t} ${e} </mwc-button> `
       );
       return j`
       <div class="entity-state" style="${this.grid(n)}" @click=${i}>
