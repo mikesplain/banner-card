@@ -317,6 +317,7 @@ class BannerCard extends LitElement {
 
   renderCustom({ value, unit, action, name, size, onClick, ...data }) {
     console.log("renderCustom: ${action}");
+    console.log("renderCustom: updated");
     const htmlContent = this.renderValue(
       { ...data, value, unit, click: action },
       () => html` <mwc-button ?dense=${true}> ${value} ${unit} </mwc-button> `
