@@ -475,7 +475,7 @@
         (this.single = 2 === i.length && "" === i[0] && "" === i[1]);
     }
     _createPart() {
-      return new k(this);
+      return new E(this);
     }
     _getValue() {
       return this.single ? this.parts[0].value : super._getValue();
@@ -485,13 +485,13 @@
         ((this.dirty = !1), (this.element[this.name] = this._getValue()));
     }
   }
-  class k extends C {}
-  let E = !1;
+  class E extends C {}
+  let k = !1;
   (() => {
     try {
       const t = {
         get capture() {
-          return (E = !0), !1;
+          return (k = !0), !1;
         },
       };
       window.addEventListener("test", t, t),
@@ -549,7 +549,7 @@
   }
   const T = (t) =>
     t &&
-    (E ? { capture: t.capture, passive: t.passive, once: t.once } : t.capture);
+    (k ? { capture: t.capture, passive: t.passive, once: t.once } : t.capture);
   /**
    * @license
    * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -1424,22 +1424,23 @@
       { icon: t, value: e, image: i, action: s, click: n, color: r },
       o
     ) {
-      return t || rt(e)
-        ? j`
-        <ha-icon
-          .icon="${t || e}"
-          style="${(r = r ? "color: " + r : "")}"
-          @click=${n}
-        ></ha-icon>
+      return (
+        (n = n ? "@click=" + n : ""),
+        t || rt(e)
+          ? j`
+        <ha-icon .icon="${t || e}" style="${(r = r
+              ? "color: " + r
+              : "")}" ${n}></ha-icon>
       `
-        : !0 === i
-        ? j`
+          : !0 === i
+          ? j`
         <state-badge
           style="background-image: url(${e});"
-          @click=${n}
+          ${n}
         ></state-badge>
       `
-        : o();
+          : o()
+      );
     }
     renderDomainDefault({
       value: t,
@@ -1473,7 +1474,7 @@
       console.log("renderCustom: ${action}"),
         console.log("renderCustom: updated");
       const a = this.renderValue(
-        { ...o, value: t, unit: e, click: i },
+        { ...o, value: t, unit: e },
         () => j` <mwc-button ?dense=${!0}> ${t} ${e} </mwc-button> `
       );
       return j`
