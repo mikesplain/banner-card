@@ -279,24 +279,36 @@ class BannerCard extends LitElement {
   }
 
   renderValue({ icon, value, image, action, click, color }, fallback) {
-    if (icon || isIcon(value)) {
-      color = color ? `color: ${color}` : "";
-      return html`
-        <ha-icon
-          .icon="${icon || value}"
-          style="${color}"
-          @click=${click}
-        ></ha-icon>
-      `;
-    } else if (image === true) {
-      return html`
-        <state-badge
-          style="background-image: url(${value});"
-          @click=${click}
-        ></state-badge>
-      `;
+    if (click) {
+      if (icon || isIcon(value)) {
+        color = color ? `color: ${color}` : "";
+        return html`
+          <ha-icon
+            .icon="${icon || value}"
+            style="${color}"
+            @click=${click}
+          ></ha-icon>
+        `;
+      } else if (image === true) {
+        return html`
+          <state-badge
+            style="background-image: url(${value});"
+            @click=${click}
+          ></state-badge>
+        `;
+      }
+    } else {
+      if (icon || isIcon(value)) {
+        color = color ? `color: ${color}` : "";
+        return html`
+          <ha-icon .icon="${icon || value}" style="${color}"></ha-icon>
+        `;
+      } else if (image === true) {
+        return html`
+          <state-badge style="background-image: url(${value});"></state-badge>
+        `;
+      }
     }
-
     return fallback();
   }
 
@@ -319,7 +331,7 @@ class BannerCard extends LitElement {
     console.log("renderCustom: ${action}");
     console.log("renderCustom: updated");
     const htmlContent = this.renderValue(
-      { ...data, value, unit, click: action },
+      { ...data, value, unit },
       () => html` <mwc-button ?dense=${true}> ${value} ${unit} </mwc-button> `
     );
     return html`

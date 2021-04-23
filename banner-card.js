@@ -1424,22 +1424,38 @@
       { icon: t, value: e, image: i, action: s, click: n, color: r },
       o
     ) {
-      return t || rt(e)
-        ? j`
+      if (n) {
+        if (t || rt(e))
+          return j`
         <ha-icon
           .icon="${t || e}"
           style="${(r = r ? "color: " + r : "")}"
           @click=${n}
         ></ha-icon>
-      `
-        : !0 === i
-        ? j`
+      `;
+        if (!0 === i)
+          return j`
         <state-badge
           style="background-image: url(${e});"
           @click=${n}
         ></state-badge>
-      `
-        : o();
+      `;
+      } else {
+        if (t || rt(e))
+          return j`
+        <ha-icon
+          .icon="${t || e}"
+          style="${(r = r ? "color: " + r : "")}"
+        ></ha-icon>
+      `;
+        if (!0 === i)
+          return j`
+        <state-badge
+          style="background-image: url(${e});"
+        ></state-badge>
+      `;
+      }
+      return o();
     }
     renderDomainDefault({
       value: t,
@@ -1473,7 +1489,7 @@
       console.log("renderCustom: ${action}"),
         console.log("renderCustom: updated");
       const a = this.renderValue(
-        { ...o, value: t, unit: e, click: i },
+        { ...o, value: t, unit: e },
         () => j` <mwc-button ?dense=${!0}> ${t} ${e} </mwc-button> `
       );
       return j`
