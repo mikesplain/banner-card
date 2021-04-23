@@ -1474,7 +1474,7 @@
       console.log("renderCustom: ${action}"),
         console.log("renderCustom: updated");
       const a = this.renderValue(
-        { ...o, value: t, unit: e },
+        { ...o, value: t, unit: e, click: i },
         () => j` <mwc-button ?dense=${!0}> ${t} ${e} </mwc-button> `
       );
       return j`
