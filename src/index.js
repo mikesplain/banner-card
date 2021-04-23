@@ -319,11 +319,7 @@ class BannerCard extends LitElement {
     console.log("renderCustom: ${action}");
     const htmlContent = this.renderValue(
       { ...data, value, unit, click: action },
-      () => html`
-        <mwc-button ?dense=${true} @click=${action}>
-          ${value} ${unit}
-        </mwc-button>
-      `
+      () => html` <mwc-button ?dense=${true}> ${value} ${unit} </mwc-button> `
     );
     return html`
       <div class="entity-state" style="${this.grid(size)}" @click=${action}>
