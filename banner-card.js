@@ -475,7 +475,7 @@
         (this.single = 2 === i.length && "" === i[0] && "" === i[1]);
     }
     _createPart() {
-      return new E(this);
+      return new k(this);
     }
     _getValue() {
       return this.single ? this.parts[0].value : super._getValue();
@@ -485,13 +485,13 @@
         ((this.dirty = !1), (this.element[this.name] = this._getValue()));
     }
   }
-  class E extends C {}
-  let k = !1;
+  class k extends C {}
+  let E = !1;
   (() => {
     try {
       const t = {
         get capture() {
-          return (k = !0), !1;
+          return (E = !0), !1;
         },
       };
       window.addEventListener("test", t, t),
@@ -549,7 +549,7 @@
   }
   const T = (t) =>
     t &&
-    (k ? { capture: t.capture, passive: t.passive, once: t.once } : t.capture);
+    (E ? { capture: t.capture, passive: t.passive, once: t.once } : t.capture);
   /**
    * @license
    * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -1424,23 +1424,22 @@
       { icon: t, value: e, image: i, action: s, click: n, color: r },
       o
     ) {
-      return (
-        (n = n ? `@click="${n}"` : ""),
-        t || rt(e)
-          ? j`
-        <ha-icon .icon="${t || e}" style="${(r = r
-              ? "color: " + r
-              : "")}" ${n}></ha-icon>
+      return t || rt(e)
+        ? j`
+        <ha-icon
+          .icon="${t || e}"
+          style="${(r = r ? "color: " + r : "")}"
+          @click=${n}
+        ></ha-icon>
       `
-          : !0 === i
-          ? j`
+        : !0 === i
+        ? j`
         <state-badge
           style="background-image: url(${e});"
-          ${n}
+          @click=${n}
         ></state-badge>
       `
-          : o()
-      );
+        : o();
     }
     renderDomainDefault({
       value: t,
