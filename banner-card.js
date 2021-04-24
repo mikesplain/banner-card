@@ -469,13 +469,13 @@
         (this.__pendingValue = y);
     }
   }
-  class k extends x {
+  class $ extends x {
     constructor(t, e, i) {
       super(t, e, i),
         (this.single = 2 === i.length && "" === i[0] && "" === i[1]);
     }
     _createPart() {
-      return new $(this);
+      return new k(this);
     }
     _getValue() {
       return this.single ? this.parts[0].value : super._getValue();
@@ -485,7 +485,7 @@
         ((this.dirty = !1), (this.element[this.name] = this._getValue()));
     }
   }
-  class $ extends C {}
+  class k extends C {}
   let E = !1;
   (() => {
     try {
@@ -609,7 +609,7 @@
     handleAttributeExpressions(t, e, i, s) {
       const n = e[0];
       if ("." === n) {
-        return new k(t, e.slice(1), i).parts;
+        return new $(t, e.slice(1), i).parts;
       }
       if ("@" === n) return [new A(t, e.slice(1), s.eventContext)];
       if ("?" === n) return [new N(t, e.slice(1), i)];
@@ -1308,25 +1308,17 @@
               s[t] = e;
             });
       }
-      if (
-        (console.info("banner-card: before if"),
-        console.info("banner-card: map_attribute: %c" + t.map_attribute),
-        console.info("banner-card: config.attribute: " + t.attribute),
-        console.info("banner-card: config.map_attribute: " + t.map_attribute),
-        t.attribute)
-      ) {
+      if (t.attribute) {
         const e = i[t.attribute];
         if (t.map_attribute && e in t.map_attribute) {
-          console.info("banner-card: inside if");
           const i = t.map_attribute[e],
             n = typeof i;
           "string" === n
-            ? (console.info("banner-card: inside if string"), (s.value = i))
+            ? (s.value = i)
             : "object" === n &&
-              (console.info("banner-card: inside else if"),
               Object.entries(i).forEach(([t, e]) => {
                 s[t] = e;
-              }));
+              });
         }
       }
       const n = {
@@ -1432,22 +1424,35 @@
       { icon: t, value: e, image: i, action: s, click: n, color: r },
       o
     ) {
-      return t || rt(e)
-        ? j`
-        <ha-icon
-          .icon="${t || e}"
-          style="${(r = r ? "color: " + r : "")}"
-          @click=${n}
-        ></ha-icon>
-      `
-        : !0 === i
-        ? j`
-        <state-badge
-          style="background-image: url(${e});"
-          @click=${n}
-        ></state-badge>
-      `
-        : o();
+      if (n) {
+        if (t || rt(e))
+          return j`
+          <ha-icon
+            .icon="${t || e}"
+            style="${(r = r ? "color: " + r : "")}"
+            @click=${n}
+          ></ha-icon>
+        `;
+        if (!0 === i)
+          return j`
+          <state-badge
+            style="background-image: url(${e});"
+            @click=${n}
+          ></state-badge>
+        `;
+      } else {
+        if (t || rt(e))
+          return j`
+          <ha-icon .icon="${t || e}" style="${(r = r
+            ? "color: " + r
+            : "")}"></ha-icon>
+        `;
+        if (!0 === i)
+          return j`
+          <state-badge style="background-image: url(${e});"></state-badge>
+        `;
+      }
+      return o();
     }
     renderDomainDefault({
       value: t,
@@ -1478,16 +1483,12 @@
       ...o
     }) {
       const a = this.renderValue(
-        { ...o, value: t, unit: e, click: i },
-        () => j`
-        <mwc-button ?dense=${!0} @click=${i}>
-          ${t} ${e}
-        </mwc-button>
-      `
+        { ...o, value: t, unit: e },
+        () => j` <mwc-button ?dense=${!0}> ${t} ${e} </mwc-button> `
       );
       return j`
-      <div class="entity-state" style="${this.grid(n)}">
-        ${ot(s, r)}
+      <div class="entity-state" style="${this.grid(n)}" @click=${i}>
+        ${ot(s)}
         <span class="entity-value">${a}</span>
       </div>
     `;
