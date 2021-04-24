@@ -313,8 +313,6 @@ class BannerCard extends LitElement {
   }
 
   renderDomainDefault({ value, unit, name, size, onClick, ...data }) {
-    console.log("renderDomainDefault: ${action}");
-
     const htmlContent = this.renderValue(
       { ...data, value, click: onClick },
       () => html` ${value} ${unit} `
@@ -328,8 +326,6 @@ class BannerCard extends LitElement {
   }
 
   renderCustom({ value, unit, action, name, size, onClick, ...data }) {
-    console.log("renderCustom: ${action}");
-    console.log("renderCustom: updated");
     const htmlContent = this.renderValue(
       { ...data, value, unit },
       () => html` <mwc-button ?dense=${true}> ${value} ${unit} </mwc-button> `
@@ -384,7 +380,6 @@ class BannerCard extends LitElement {
   }
 
   _renderCustomElement(tag, config, customStyle) {
-    console.log("_renderCustomElement: ${config}");
     return html`
       <div class="entity-state" style="${this.grid(config.size || "full")}">
         <div class="entity-value">
@@ -397,7 +392,6 @@ class BannerCard extends LitElement {
   }
 
   renderCustomElement(tag, config, customStyle = "") {
-    console.log("config: ${action}");
     if (customElements.get(tag)) {
       return this._renderCustomElement(tag, config, customStyle);
     } else {
@@ -406,7 +400,6 @@ class BannerCard extends LitElement {
   }
 
   renderAsToggle({ onClick, size, name, state, domain, entity, color }) {
-    console.log("renderAsToggle: ${action}");
     color = color ? color : "var(--switch-checked-color)";
     return html`
       <div class="entity-state" style="${this.grid(size)}">
@@ -424,7 +417,6 @@ class BannerCard extends LitElement {
   }
 
   renderDomainCover({ onClick, size, name, state, entity }) {
-    console.log("renderDomainCover: ${name}");
     const isclosed = state === "closed" || state === 0.0;
     const isopen = state === "open" || state === 100.0;
     return html`
